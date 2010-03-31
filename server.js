@@ -118,18 +118,23 @@ fu.post("/post", function(req, res){
   })
 });
 
-// Example of a static file
+// Example of some static files
 fu.get("/shotenjin.js", fu.staticHandler('shotenjin.js'));
+fu.get("/goodbyeworld.txt", fu.staticHandler('goodbyeworld.txt'));
 
-// Example of HTML templating (using shotenjin aka client-side tenjin templating)
+var show504 = function(){
+  res.writeHead(504, {"content-type":"text/html"});
+  res.write("<h1>Fail...</h1>");
+  res.close();
+}
+
+// Example of client side HTML templating (using embedded shotenjin aka client-side tenjin templating)
 fu.get("/template", function(req, res){
-  var filename = "helloworld.html.tpl"; // this file has template code that gets parsed in the client on button click
+  var filename = "helloworld.jshtml"; // this file has template code that gets parsed in the client on button click
   var encoding = "utf8";
   fs.readFile(filename, encoding, function(err, data){ // open file, and display to user
     if (err){
-      res.writeHead(504, {"content-type":"text/html"});
-      res.write("<h1>Fail...</h1>");
-      res.close();
+      show504();
     } else {
       res.writeHead(200, {"Content-Type":"text/html"});
       res.write(data);
@@ -137,6 +142,22 @@ fu.get("/template", function(req, res){
     }
   })
 });
+
+// Example of client side HTML templating loading dynamically
+fu.get("/dyntemplate", function(req, res){
+  var filename = "goodbyeworld.jshtml";
+  var encoding = "utf8";
+  fs.readFile(filename, encoding, function(err, data){
+    if (err){
+      show504();
+    } else {
+      res.writeHead(200, {"Content-Type":"text/html"});
+      res.write(data);
+      res.close();
+    }
+  })
+})
+
 
 // Example of server side HTML templating
 fu.get("/sstemplate", function(req, res){

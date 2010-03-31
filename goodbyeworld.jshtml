@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>Hello World.</title>
+  </head>
+  <body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script language="JavaScript" type="text/javascript" src="shotenjin.js"></script>
+    <script language="JavaScript" type="text/javascript">
+      jQuery(document).ready(function(){
+        (function($){
+          $.get('goodbyeworld.txt', function(data){
+            var message = data;
+            var context = {name:"Chewbacca"};
+            var output = Shotenjin.render(message, context);
+            $("#targettable").html(output);
+          });
+        }(jQuery))
+      });
+    </script>
+    <table id="targettable"></table>
+  </body>
+</html>
