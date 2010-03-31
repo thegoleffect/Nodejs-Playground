@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>Hello World.</title>
+  </head>
+  <body>
+    Hello World.
+    <script language="JavaScript" type="text/javascript" src="shotenjin.js"></script>
+    <script language="JavaScript" type="text/javascript">
+      <!--
+
+        function build_table() {
+          var input = '\
+          <table border="1">\n\
+            <tbody>\n\
+              <?js for (var i = 0, n = items.length; i < n; i++) { ?>\n\
+              <tr>\n\
+                <td>#{i}</td>\n\
+                <td>${items[i]}</td>\n\
+              </tr>\n\
+              <?js } ?>\n\
+            </tbody>\n\
+          <table>\
+          ';
+          var context = {items: ['AAA','BBB','CCC']};
+          var output = Shotenjin.render(input, context);
+          document.getElementById('targettable').innerHTML = output;
+          // document.getElementById('htmlsource').innerHTML = escapeXml(output);
+        }
+      -->
+    </script>
+    <input type="button" value="Build table" onclick="javascript:build_table()" />
+    <table id="targettable"></table>
+    <!-- <div id="htmlsource"></div> -->
+  </body>
+</html>

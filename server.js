@@ -1,5 +1,6 @@
 var sys = require('sys');
 var http = require('http');
+var fs = require("fs");
 
 var Tork = require('./tork');
 var App = require('./app');
@@ -80,7 +81,6 @@ fu.get("/recv", function(req, res){
   res.close();  
 });
 
-
 // Example of a cheap form
 fu.get("/form", function(req, res){
   res.writeHead(200, {'Content-Type': 'text/html'});
@@ -116,4 +116,29 @@ fu.post("/post", function(req, res){
     res.write(sys.inspect(fields));
     res.close();
   })
+});
+
+// Example of a static file
+fu.get("/shotenjin.js", fu.staticHandler('shotenjin.js'));
+
+// Example of HTML templating (using shotenjin aka client-side tenjin templating)
+fu.get("/template", function(req, res){
+  var filename = "helloworld.html.tpl"; // this file has template code that gets parsed in the client on button click
+  var encoding = "utf8";
+  fs.readFile(filename, encoding, function(err, data){ // open file, and display to user
+    if (err){
+      res.writeHead(504, {"content-type":"text/html"});
+      res.write("<h1>Fail...</h1>");
+      res.close();
+    } else {
+      res.writeHead(200, {"Content-Type":"text/html"});
+      res.write(data);
+      res.close();
+    }
+  })
+});
+
+// Example of server side HTML templating
+fu.get("/sstemplate", function(req, res){
+  // TODO
 })
